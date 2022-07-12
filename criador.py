@@ -1,0 +1,46 @@
+import json 
+from os import system,mkdir
+
+print('-'*100)
+print(f'{"Criando ambiente virtual!":^100}')
+print('-'*100)
+
+system('python -m venv venv')
+print('Ambiente virtual criado!')
+system('.\\venv\\Scripts\\activate.bat')
+print('Ambiente virtual ativado!')
+
+print('-'*100)
+print(f'{"Criando Arquivos":^100}')
+print('-'*100)
+mkdir('website')
+print('website criado!')
+mkdir('website/static')
+print('static criada!')
+mkdir('website/template')
+print('template criado!')
+
+with open('sample.json','r') as file:data = json.load(file)
+file.close()
+with open('main.py','w') as file:file.write(data['main'])
+file.close()
+with open('website/__init__.py','w') as file:file.write(data['init'])
+file.close()
+models = input('Models?\n')
+if models == 's':
+    with open('website/models.py','w') as file:file.write(data['models'])
+    file.close()
+with open('website/auth.py','w') as file:file.write(data['auth'])
+file.close()
+with open('website/view.py','w') as file:file.write(data['views'])
+file.close()
+with open('website/template/home.html','w') as file:file.write(data['home'])
+file.close()
+with open('website/static/style.css','w') as file:file.write(data['style'])
+file.close()
+
+print('-'*100)
+print(f'{"Processo finalizado!":^100}')
+print(f'{"Você vai ter que instalar manualmente as seguintes libs:":^100}')
+print(f'{"flask, flask-alchemy, flask-loguin":^100}')
+print('-'*100)
